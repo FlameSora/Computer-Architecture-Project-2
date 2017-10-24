@@ -49,7 +49,7 @@ instruction parsing_instr(const char *buffer, const int index)
 	shamt[i] = buffer[20+i];
     }	
     for(i=0;i<26;i++){
- 	target[i] = buffer[5+i];
+ 	target[i] = buffer[6+i];
     }
     
     if(fromBinary(op) == 0){
