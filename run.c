@@ -106,6 +106,66 @@ void process_instruction(){
 		CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
 	}
 
-	printf("op code is: %d\n",instr.opcode);
-	printf("pc is: %x\n",CURRENT_STATE.PC);
+	if(op == 0){
+		if(func == 8){
+		//jr
+	
+			CURRENT_STATE.PC  = CURRENT_STATE.REGS[rs];	
+		}
+		if(func== 33){
+		//Addu
+			CURRENT_STATE.REGS[rd] = CURRENT_STATE.REGS[rs] + CURRENT_STATE.REGS[rt];
+			CURRENT_STATE.PC  = CURRENT_STATE.PC+4;	
+		}
+		if(func== 36){
+		//And	
+			
+			CURRENT_STATE.REGS[rd] = CURRENT_STATE.REGS[rs] & CURRENT_STATE.REGS[rt];
+			CURRENT_STATE.PC  = CURRENT_STATE.PC+4;	
+		}
+		if(func== 39){
+		//Nor
+			CURRENT_STATE.REGS[rd] = ~(CURRENT_STATE.REGS[rs] | CURRENT_STATE.REGS[rt]);
+			CURRENT_STATE.PC  = CURRENT_STATE.PC+4;	
+		}
+		if(func== 37){
+		//Or
+			CURRENT_STATE.REGS[rd] = CURRENT_STATE.REGS[rs] | CURRENT_STATE.REGS[rt];
+			CURRENT_STATE.PC  = CURRENT_STATE.PC+4;	
+		}
+		if(func== 43){
+		//Sltu
+			if(CURRENT_STATE.REGS[rs]<CURRENT_STATE.REGS[rt]){
+				CURRENT_STATE.REGS[rd] = 1;
+			}else{
+				CURRENT_STATE.REGS[rd] = 0;
+			} 
+			CURRENT_STATE.PC  = CURRENT_STATE.PC+4;	
+		}
+		if(func== 0){
+		//Sll
+			CURRENT_STATE.REGS[rd] =CURRENT_STATE.REGS[rt]<<shamt;
+			CURRENT_STATE.PC  = CURRENT_STATE.PC+4;	
+		}
+		if(func== 2){
+		//Srl
+			CURRENT_STATE.REGS[rd] = CURRENT_STATE.REGS[rs] >> CURRENT_STATE.REGS[rt];
+			CURRENT_STATE.PC  = CURRENT_STATE.PC+4;	
+		}
+		if(func== 35){
+		//Subu
+			CURRENT_STATE.REGS[rd] = CURRENT_STATE.REGS[rs] - CURRENT_STATE.REGS[rt];
+			CURRENT_STATE.PC  = CURRENT_STATE.PC+4;	
+		}
+	}
+	else if(op ==2){
+		CURRENT_STATE.PC = target*4;
+	}
+	else if(op== 3){
+		CURRENT_STATE.REGS[31] = CURRENT_STATE.PC+8;
+		CURRENT_STATE.PC = target*4; 
+	}
+	//printf("testing %d\n", 88>>1);
+	//printf("op code is: %d\n",instr.opcode);
+	//printf("pc is: %x\n",CURRENT_STATE.PC);
 }
