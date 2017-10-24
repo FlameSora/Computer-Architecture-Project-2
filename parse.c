@@ -24,7 +24,14 @@ instruction parsing_instr(const char *buffer, const int index)
 
 void parsing_data(const char *buffer, const int index)
 {
-	uint32_t data = (uint32_t) fromBinary(buffer);
+	char *number = (char *)malloc(32);
+	int i;
+
+	for (i = 0; i<32; i++) {
+		number[i] = buffer[i];
+	}
+
+	uint32_t data = (uint32_t) fromBinary(number);
 	
 	mem_write_32(MEM_DATA_START + index, data);
 }
