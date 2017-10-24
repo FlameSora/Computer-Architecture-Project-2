@@ -45,12 +45,8 @@ void process_instruction(){
 	int shamt = instr.r_t.r_i.r_i.r.shamt;
 	int target = instr.r_t.target;
 	int value = instr.value;
-	int counter = 0;
-
-	if (counter == 1) {
-		return;
-	}
-
+	int tempPC = CURRENT_STATE.PC;
+//	if(counter ==0){
 	if (op == 9){
 		CURRENT_STATE.REGS[rt] = CURRENT_STATE.REGS[rs] + imm;
 		CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
@@ -171,14 +167,23 @@ void process_instruction(){
 		CURRENT_STATE.REGS[31] = CURRENT_STATE.PC+8;
 		CURRENT_STATE.PC = target*4; 
 	}
-
+//	instruction instrN = *get_inst_info(CURRENT_STATE.PC);
+//	if(instrN.value ==0){
+//		
+//		CURRENT_STATE.PC = tempPC;
+//		counter  = 1;
+//		
+//	}
+//	printf("run bit is:%d\n",RUN_BIT);
 	if (CURRENT_STATE.PC - MEM_TEXT_START >= 4*NUM_INST) {
-		CURRENT_STATE.PC = CURRENT_STATE.PC - 4;
-		counter = 1;
+	//	counter =1;
+		RUN_BIT = 0;
+	//	printf("tempPC when counter ==1: %x\n",tempPC);
+		CURRENT_STATE.PC = tempPC+4;
 	}
-
+//	}
 	//printf("testing %d\n", 88>>1);
-	//printf("op code is: %d\n",instr.opcode);
-	//printf("func is: %d\n", func);
-	//printf("pc is: %x\n",CURRENT_STATE.PC);
+//	printf("op code is: %d\n",instr.opcode);
+//	//printf("func is: %d\n", func);
+//	printf("pc is: %x\n",CURRENT_STATE.PC);
 }

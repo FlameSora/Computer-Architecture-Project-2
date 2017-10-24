@@ -86,7 +86,7 @@ instruction parsing_instr(const char *buffer, const int index)
     //printf("instr's op is %d\n",instr.opcode); 
     //printf("op to binary: %d, func is %d\n",fromBinary(op),fromBinary(func));		
     //printf("index is %d\n",index);
-    printf("buffer is %s\n", buffer);
+//    printf("buffer is %s\n", buffer);
     return instr;
 }
 
