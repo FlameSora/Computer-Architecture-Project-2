@@ -34,19 +34,19 @@ instruction parsing_instr(const char *buffer, const int index)
 	func[i] = buffer[31-5+i];
     }
     for(i=0;i<5;i++){
-	rs[i] = buffer[5+i];	
+	rs[i] = buffer[6+i];	
     }
     for(i=0;i<5;i++){
-	rt[i] = buffer[10+i];	
+	rt[i] = buffer[11+i];	
     }
     for(i=0;i<5;i++){
-	rd[i] = buffer[15+i];	
+	rd[i] = buffer[16+i];	
     }
     for(i=0;i<16;i++){
-	imm[i] = buffer[15+i];	
+	imm[i] = buffer[16+i];	
     }
     for(i=0;i<5;i++){
-	shamt[i] = buffer[20+i];
+	shamt[i] = buffer[21+i];
     }	
     for(i=0;i<26;i++){
  	target[i] = buffer[6+i];
