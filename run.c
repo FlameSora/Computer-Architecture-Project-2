@@ -32,6 +32,7 @@ instruction* get_inst_info(uint32_t pc)
 /*                                                             */
 /***************************************************************/
 void process_instruction(){
+
 	instruction* instrp;
 	instrp  = get_inst_info(CURRENT_STATE.PC);
 	instruction instr = *instrp;
@@ -43,38 +44,68 @@ void process_instruction(){
 	int rd = instr.r_t.r_i.r_i.r.rd;
 	int shamt = instr.r_t.r_i.r_i.r.shamt;
 	int target = instr.r_t.target;	
-	if(instr.opcode == 0){
-		if(func == 8){
-		//jr	
+
+	if (op == 9){
+		CURRENT_STATE.REGS[rt] = CURRENT_STATE.REGS[rs] + imm;
+		CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+	}
+	
+	if (op == 12) {
+		CURRENT_STATE.REGS[rt] = CURRENT_STATE.REGS[rs] & imm;
+		CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+	}
+	
+	if (op == 4) {
+		if (CURRENT_STATE.REGS[rs] == CURRENT_STATE.REGS[rt]) {
+			CURRENT_STATE.PC = CURRENT_STATE.PC + 4 + imm*4;
 		}
-		if(func== 33){
-		//Addu
-			CURRENT_STATE.REGS[instr.r_t.r_i.r_i.r.rd];	
-		}
-		if(func== 36){
-		//And
-		}
-		if(func== 39){
-		//Nor
-		}
-		if(func== 37){
-		//Or
-		}
-		if(func== 43){
-		//Sltu
-		}
-		if(func== 0){
-		//Sll
-		}
-		if(func== 2){
-		//Srl
-		}
-		if(func== 35){
-		//Subu
+		else {
+			CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
 		}
 	}
+
+	if (op == 5) {
+		if (CURRENT_STATE.REGS[rs] != CURRENT_STATE.REGS[rt]) {
+			CURRENT_STATE.PC = CURRENT_STATE.PC + 4 + imm*4;
+		}
+		else {
+			CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+		}
+	}
+
+	if (op == 15) {
+		uint32_t data = (uint32_t) imm;
+		CURRENT_STATE.REGS[rt] = data << 16;
+		CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+	}
+
+	if (op == 35) {
+		CURRENT_STATE.REGS[rt] = mem_read_32(CURRENT_STATE.REGS[rs] + imm);
+		CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+	}
+	
+	if (op == 13) {
+		CURRENT_STATE.REGS[rt] = CURRENT_STATE.REGS[rs] | imm;
+		CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+	}
+	
+	if (op == 11) {
+		uint32_t data = (uint32_t) imm;
+		if (CURRENT_STATE.REGS[rs] < data) {
+			CURRENT_STATE.REGS[rt] = 1;
+			CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+		}
+		else {
+			CURRENT_STATE.REGS[rt] = 0;
+			CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+		}
+	}
+	
+	if (op == 43) {
+		mem_write_32(CURRENT_STATE.REGS[rs] + imm, CURRENT_STATE.REGS[rt]);
+		CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+	}
+
 	printf("op code is: %d\n",instr.opcode);
 	printf("pc is: %x\n",CURRENT_STATE.PC);
-///	printf("hahahahaha");
-	/** Implement this function */
 }
