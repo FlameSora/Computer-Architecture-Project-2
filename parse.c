@@ -51,6 +51,7 @@ instruction parsing_instr(const char *buffer, const int index)
     for(i=0;i<26;i++){
  	target[i] = buffer[5+i];
     }
+    
     if(fromBinary(op) == 0){
 // R type or jr
 	
@@ -81,6 +82,7 @@ instruction parsing_instr(const char *buffer, const int index)
  	instr.r_t.r_i.rt = fromBinary(rt);
 	instr.r_t.r_i.r_i.imm = fromBinary(imm);
     }
+    instr.value = index;
     printf("instr's op is %d\n",instr.opcode); 
     printf("op to binary: %d, func is %d\n",fromBinary(op),fromBinary(func));		
     printf("index is %d\n",index);
