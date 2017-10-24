@@ -18,7 +18,73 @@ int data_size;
 instruction parsing_instr(const char *buffer, const int index)
 {
     instruction instr;
-	/** Implement this function */
+    char *op = malloc(6);
+    char *func = malloc(6);
+    int i;
+    char *rs = malloc(5);
+    char *rt = malloc(5);
+    char *rd = malloc(5);
+    char *imm = malloc(16);
+    char *shamt = malloc(5);
+    char *target = malloc(26);
+    for(i=0; i<6;i++){
+	op[i] = buffer[i];
+    }	
+    for (i = 0; i<6; i++){
+	func[i] = buffer[31-5+i];
+    }
+    for(i=0;i<5;i++){
+	rs[i] = buffer[5+i];	
+    }
+    for(i=0;i<5;i++){
+	rt[i] = buffer[10+i];	
+    }
+    for(i=0;i<5;i++){
+	rd[i] = buffer[15+i];	
+    }
+    for(i=0;i<16;i++){
+	imm[i] = buffer[15+i];	
+    }
+    for(i=0;i<5;i++){
+	shamt[i] = buffer[20+i];
+    }	
+    for(i=0;i<26;i++){
+ 	target[i] = buffer[5+i];
+    }
+    if(fromBinary(op) == 0){
+// R type or jr
+	
+	if(fromBinary(func) ==8){
+	//jr case
+		instr.opcode = fromBinary(op); 
+		instr.func_code = fromBinary(func);
+		instr.r_t.r_i.rs = fromBinary(rs);
+        }
+	else{
+   	//R type
+		instr.opcode = fromBinary(op); 
+		instr.func_code = fromBinary(func);
+		instr.r_t.r_i.rs = fromBinary(rs);
+		instr.r_t.r_i.rt = fromBinary(rt);
+ 		instr.r_t.r_i.r_i.r.rd = fromBinary(rd);
+		instr.r_t.r_i.r_i.r.shamt = fromBinary(shamt);	
+				
+        }
+    }
+    else if((fromBinary(op) == 3)|(fromBinary(op)==2)){
+ 	instr.opcode = fromBinary(op);
+	instr.r_t.target = fromBinary(target);
+    }
+    else {	
+	instr.opcode = fromBinary(op); 
+	instr.r_t.r_i.rs = fromBinary(rs);
+ 	instr.r_t.r_i.rt = fromBinary(rt);
+	instr.r_t.r_i.r_i.imm = fromBinary(imm);
+    }
+    printf("instr's op is %d\n",instr.opcode); 
+    printf("op to binary: %d, func is %d\n",fromBinary(op),fromBinary(func));		
+    printf("index is %d\n",index);
+    printf("buffer is %s\n", buffer);
     return instr;
 }
 
@@ -32,7 +98,6 @@ void parsing_data(const char *buffer, const int index)
 	}
 
 	uint32_t data = (uint32_t) fromBinary(number);
-	
 	mem_write_32(MEM_DATA_START + index, data);
 }
 
