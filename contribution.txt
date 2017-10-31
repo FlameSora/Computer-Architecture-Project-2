@@ -1,2 +1,32 @@
-20140829 Min Kim 50%
-20140829 Kou Seunghun 50%
+Chang Hyun Park (3):
+      Initial Commit
+      Adding README.md
+      Merge branch 'master' of ssh://cabackup.kaist.ac.kr:19022/CS311-computer-organization/Project2-handout
+
+Min Kim (8):
+      instruction parsing
+      Merge branch 'master' of ssh://cs311.kaist.ac.kr:10022/Team47/Project2     making conflict     Conflicts:     	parse.c
+      fixing
+      fixing 2
+      parse.c minor fixing
+      fixing
+      R type and J Type
+      complete
+
+Seunghun Koh (10):
+      Data parsing
+      Data parsing
+      Parsing done
+      I type run
+      Merge branch 'master' of ssh://cs311.kaist.ac.kr:10022/Team47/Project2
+      Example 2, 3, leaf should be corrected
+      almost done
+      passing parse
+      adding contribution min50% Seunghun 50%
+      Instruction binary added to text section
+
+Taekyung Heo (3):
+      sample output fixed
+      sample output fixed
+      sample output fixed
+
