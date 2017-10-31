@@ -176,9 +176,7 @@ void process_instruction(){
 //	}
 //	printf("run bit is:%d\n",RUN_BIT);
 	if (CURRENT_STATE.PC - MEM_TEXT_START >= 4*NUM_INST) {
-	//	counter =1;
 		RUN_BIT = 0;
-	//	printf("tempPC when counter ==1: %x\n",tempPC);
 		CURRENT_STATE.PC = tempPC+4;
 	}
 //	}
